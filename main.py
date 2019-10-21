@@ -8,8 +8,8 @@ Created on Fri Oct 18 16:38:29 2019
 import numpy as np
 from read import find_limits, get_data
 from fit import gaussian_plus_line, first_moment, second_moment, fit_spectrum_with_curve_fit, within_range, format_result
-from plot import plot_result
-from dictionary import get_roi, set_params
+from plot import plot_result, plot_calibration_curve
+from dictionary import get_roi, set_params, get_E_n
 
 def fit_peak(detector, sample, no_peaks):
     source = sample.split(".", 1)[0] # get sample name
@@ -36,13 +36,22 @@ def main():
     detectors = ["BGO"]
     #samples = ["137Cs.spe"]
     samples = ["241Am.spe", "133Ba.spe", "137Cs.spe", "60Co.spe"]
+    Es = []
+    ns = []
     for detector in detectors:
         for sample in samples:
             source = str(sample.split(".", 1)[0])
             print("For " + source + " in " + detector + " detector")
             print("mu\terr\tsigma\terr")
             set_params(fit_peak(detector, sample, 0), detector, source, 0)
+            E, n = get_E_n(detector, source, 0)
+            Es.append(E)
+            ns.append(n)
             if sample == "60Co.spe": # fit extra peak for 60Co
                 set_params(fit_peak(detector, sample, 1), detector, source, 1)
-                
+                E, n = get_E_n(detector, source, 1)
+                Es.append(E)
+                ns.append(n)
+    plot_calibration_curve(detector, Es, ns)
+            
 main()

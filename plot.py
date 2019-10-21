@@ -46,3 +46,9 @@ def plot_result(model, detector, source, popt, channels, counts, _channels, _cou
     ax.plot(channels, model(channels, *popt), c='C0')
     
     return fig, ax
+
+def plot_calibration_curve(detector, Es, ns):
+    fig, ax = plt.subplots(1)
+    fig.set_size_inches([5.33, 5.33/1.85])
+    fig.suptitle('Calibration curve for ' + detector + ' detector')
+    ax.scatter(Es, ns, marker='+')
