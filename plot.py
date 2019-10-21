@@ -28,12 +28,21 @@ def format_spectrum(ax, xlim=None, ylim=None, xlabel=r'Channel', ylabel=r'Counts
     return ax
 
 # display the fit
-def plot_result(model, detector, source, popt, channels, counts, channel_range=None):
+def plot_result(model, detector, source, popt, channels, counts, _channels, _counts, channel_range=None): 
+    #plot_full_spectrum()
+    fig, ax = plt.subplots(1)
+    fig.set_size_inches([5.33, 5.33/1.85])
+    fig.suptitle(source + 'Spectrum taken with ' + detector + ' Detector')
+    format_spectrum(ax)
+    ax.scatter(channels, counts, marker='+', c='C0', label='all data')
+    ax.scatter(_channels, _counts, marker='+', c='C1', label=r'$x_{\rm{min}}=125$, $x_{\rm{max}}=200$')
+    ax.legend(loc='upper right')
+    
     fig, ax = plt.subplots(1)
     fig.set_size_inches([5.33, 5.33/1.85])
     fig.suptitle(source + ' Spectrum taken with ' + detector + ' Detector')
     format_spectrum(ax, xlim=channel_range)
     ax.scatter(channels, counts, marker='+', c='C0')
     ax.plot(channels, model(channels, *popt), c='C0')
+    
     return fig, ax
-

@@ -80,7 +80,7 @@ def format_value(val, err):
         return val_str + " ± " + err_str
     except:
         return "{} ± {}".format(val, err)
-
+    
 # list fitted parameters    
 def format_result(ps, popts, perrs):
     out = ""
