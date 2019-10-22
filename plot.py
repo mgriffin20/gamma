@@ -54,7 +54,6 @@ def plot_result(model, detector, source, popt, channels, counts, _channels, _cou
     ax.scatter(channels, counts, marker='+', c='C0')
     # plot fitted curve
     ax.plot(channels, model(channels, *popt), c='C0')
-    
     return fig, ax
 
 # plot calibration curve to show how the channel number varies with incident energy
