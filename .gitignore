@@ -5,14 +5,7 @@
 ### Python ###
 # My stuff
 output/
-calibv01.py
-calibv02.py
-ex1.py
-peaks.py
-plotspe.py
-read137Cs.py
-readspe.oy
-test.py
+old/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
