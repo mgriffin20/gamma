@@ -44,6 +44,8 @@ def fit_peak(detector, sample, no_peaks):
     return format_result(params, popt, perr)
 
 def main():
+    """Finds fitted energies for a list of detectors and spectra and plots a
+    calibration curve for each detector.."""
     # list of detectors
     detectors = ["BGO"]
     # list of sample files
