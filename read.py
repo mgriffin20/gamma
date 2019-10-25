@@ -7,6 +7,10 @@ Created on Fri Oct 18 16:32:55 2019
 """Reads counts from spectrum file."""
 
 import numpy as np
+from datetime import datetime
+from datetime import date
+from datetime import time
+
 
 def find_limits(filename):
     """Finds indices of the lines in spectrum file where counts start and end."""
@@ -26,6 +30,20 @@ def find_limits(filename):
                 end = start + (channel_max - channel_min + 1)
                 return start, end
 
+
+def get_lifetime(filename):
+    time_format = '%m/%d/%Y %H:%M:%S'
+    epoch = datetime.strptime('12/01/1979 12:00:00', time_format)
+    with open(filename, "r") as f:
+        for x in f:
+            if x.strip() == "$DATE_MEA:":
+                nextline = f.readline()
+                measurement_date = datetime.strptime(nextline.rstrip('\n'), time_format)
+                return float(((measurement_date - epoch).total_seconds()) - (137*60))
+    
+def get_live_time():
+    return 0
+    
 def get_data(filename, start, end):
     """Retrieves counts from a spectrum file between two specified line indices."""
      # open specified spectrum file

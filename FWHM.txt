@@ -1,0 +1,5 @@
+    
+def get_FWHM(detector, source, no_peaks)
+    sigma, err = parameters[detector +   + source +   +  str(no_peaks) +  sigma]
+    FWHM = (2.0math.sqrt(2.0math.log(2.0)))  float(sigma)
+    return FWHM
