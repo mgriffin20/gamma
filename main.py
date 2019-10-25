@@ -18,6 +18,9 @@ from plot import plot_result, plot_calibration_curve
 from dictionary import get_no_peaks, get_roi, set_params, get_E_n
 
 def fit_peak(detector, sample, no_peaks):
+    """Extracts data from a spectrum file, finds the counts in the region of
+    interest, and estimates fitted parameters. Adapted from PHYC40870 Space
+    Detector Laboratory Curve Fitting With Python, Robert Jeffrey."""
     source = sample.split(".", 1)[0] # get sample name
     start, end = find_limits(sample) # get where data starts and ends in file
     channels, counts = get_data(sample, start, end) # retrieve data

@@ -4,11 +4,12 @@ Created on Fri Oct 18 16:32:55 2019
 
 @author: meadh
 """
+"""Reads counts from spectrum file."""
 
 import numpy as np
 
-# find lines where counts start and end
 def find_limits(filename):
+    """Finds indices of the lines in spectrum file where counts start and end."""
     # open specified spectrum file
     with open(filename, "r") as f:
         # count through each line in file
@@ -25,8 +26,8 @@ def find_limits(filename):
                 end = start + (channel_max - channel_min + 1)
                 return start, end
 
-# retrieve counts from file between two specified line
 def get_data(filename, start, end):
+    """Retrieves counts from a spectrum file between two specified line indices."""
      # open specified spectrum file
     with open(filename, "r") as f:
         # read all lines in file into lines

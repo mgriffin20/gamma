@@ -5,8 +5,9 @@ Created on Fri Oct 18 16:47:17 2019
 @author: meadh
 """
 
+"""Dictionary file. Stores data required for processing of spectra, e.g. energies,
+ no. of peaks, regions of interest, and provides accessor and mutator methods."""
 import re
-import math
 
 # index of last distunguishable peak in each spectrum for each source and detector
 peaks = {
@@ -43,18 +44,21 @@ energies = {
         "133Ba 3" : [383.8485, 0.0012]
         }
 
-# returns index of last distunguishable peak in each spectrum for specified source + detector
 def get_no_peaks(detector, source):
+    """Returns index of last distunguishable peak in each spectrum for specified
+    combination of source and detector."""
     return peaks[detector + " " + source]
 
-# return roi for a specified peak for a specified source + detector
 def get_roi(detector, source, no_peaks):
+    """Returns bounds of region of interestfor a specified peak for a specified
+    combination of source + detector."""
     roi = rois[detector + " " + source + " " + str(no_peaks)]
     # returns lower limit, upper limit
     return roi[0], roi[1]
 
-# writes mu + error and sigma + error into parameters for specified source, detector & peak
 def set_params(params, detector, source, no_peaks):
+    """Writes mu and its error and sigma and its error into parameters for
+    specified combination of source, detector & peak."""
     # splits list of parameters into lines
     for param in params.split("\n"):
         # for parameters of interest
@@ -66,8 +70,9 @@ def set_params(params, detector, source, no_peaks):
             # sets value to parameter value and and error
             parameters[key] = [vals[2], vals[4]]
             
-# returns energy E and channel n for specified source, detector and peak
 def get_E_n(detector, source, no_peaks):
+    """Returns energy E and channel n for specified combination of source,
+    detector and peak."""
     E, E_err = parameters[detector + " " + source + " " +  str(no_peaks) + " mu"]
     n, n_err = energies[source + " " +  str(no_peaks)]
     return E, n

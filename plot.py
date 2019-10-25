@@ -5,14 +5,19 @@ Created on Fri Oct 18 16:15:41 2019
 @author: meadh
 """
 
+"""Contains methods to plot spectra and fitted curves, and methods of formatting
+said plots."""
+
 import matplotlib.pyplot as plt
 import numpy as np
-# convenience function to simplify plotting spectra.
+#
 def format_spectrum(ax, xlim=None, ylim=None, xlabel=r'Channel', ylabel=r'Counts', **kwargs):
+    """Convenience function to simplify plotting spectra. Adapted from PHYC40870
+    Space Detector Laboratory Curve Fitting With Python, Robert Jeffrey."""
     # label plot axes
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
-    
+
     # if a limit on the x axis is specified
     if xlim:
         # set it
@@ -20,21 +25,23 @@ def format_spectrum(ax, xlim=None, ylim=None, xlabel=r'Channel', ylabel=r'Counts
     else:
         # set it automatically
         ax.set_xlim(auto=True)
-        
+
     # do same for y-axis
     if ylim:
         ax.set_ylim(ylim)
     else:
         ax.set_ylim(auto=True)
-        
+
     # turn grid on
     ax.grid(True)
     # set ticks and gridlines below everything else
     ax.set_axisbelow(True)
     return ax
 
-# display the fit
-def plot_result(model, detector, source, popt, channels, counts, _channels, _counts, channel_range=None): 
+def plot_result(model, detector, source, popt, channels, counts, _channels, _counts, channel_range=None):
+    """Displays two plots: the spectrum with region of interest highlighted,
+    and the fitted photopeak. Adapted from PHYC40870 Space Detector Laboratory
+    Curve Fitting With Python, Robert Jeffrey."""
     # plot entire spectrum with region of interest highlighted
     fig, ax = plt.subplots(1)
     fig.set_size_inches([5.33, 5.33/1.85])
@@ -43,7 +50,7 @@ def plot_result(model, detector, source, popt, channels, counts, _channels, _cou
     ax.scatter(channels, counts, marker='+', c='C0', label='all data')
     ax.scatter(_channels, _counts, marker='+', c='C1', label=r'$x_{\rm{min}}=125$, $x_{\rm{max}}=200$')
     ax.legend(loc='upper right')
-    
+
     # plot peak fitted with Gaussian
     fig, ax = plt.subplots(1)
     fig.set_size_inches([5.33, 5.33/1.85])
@@ -56,8 +63,11 @@ def plot_result(model, detector, source, popt, channels, counts, _channels, _cou
     ax.plot(channels, model(channels, *popt), c='C0')
     return fig, ax
 
-# plot calibration curve to show how the channel number varies with incident energy
+#
 def plot_calibration_curve(detector, Es, ns):
+    """Plots a calibration curve to show how the channel number varies with
+    incident energy.Adapted from PHYC40870 Space Detector Laboratory Curve
+    Fitting With Python, Robert Jeffrey."""
     fig, ax = plt.subplots(1)
     fig.set_size_inches([5.33, 5.33/1.85])
     fig.suptitle('Calibration curve for ' + detector + ' detector')
