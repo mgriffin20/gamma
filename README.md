@@ -1,5 +1,5 @@
 # gamma
-### Meadhbh Griffin 08/10/19  15366976
+### Meadhbh Griffin 26/12/19  15366976
 
 Python scripts and results for submission in PHYC40870 Space Detector Laboratory. Carries out analysis of four gamma ray detectors, BGO, CdTe, HPGe and NaI, with four gamma-ray sources, 241Am, 137Cs, 133Ba and 60Co.
 
